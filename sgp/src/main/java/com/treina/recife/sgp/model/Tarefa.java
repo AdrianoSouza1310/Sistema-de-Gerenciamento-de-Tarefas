@@ -1,12 +1,10 @@
 package com.treina.recife.sgp.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.treina.recife.sgp.constants.Prioridade;
-import com.treina.recife.sgp.constants.StatusProjeto;
-import com.treina.recife.sgp.constants.StatusUsuario;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -24,7 +22,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "Tarefa")
-public class Tarefa {
+public class Tarefa implements Serializable {
+    private static final long serialVersionUID = 1L;
    
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
