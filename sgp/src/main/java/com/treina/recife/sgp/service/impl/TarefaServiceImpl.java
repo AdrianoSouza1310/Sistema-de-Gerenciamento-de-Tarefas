@@ -1,5 +1,5 @@
 package com.treina.recife.sgp.service.impl;
 
-public class ProjetoService {
+public class TarefaServiceImpl {
 
 }
