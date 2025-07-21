@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.treina.recife.sgp.constants.StatusUsuario;
+import com.treina.recife.sgp.constants.StatusUsuario; // Certifique-se de que este enum está correto e no caminho certo
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,6 +16,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,37 +24,40 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "Usuarios")
-
+@Entity
+@Table(name = "usuarios")
 public class Usuario implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-@Column(name = "userId")
-private long userId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id") // Garante que a coluna no DB é 'user_id'
+    private Long userId; // O nome da propriedade é 'userId'
 
-@Column(name = "NOME", nullable = false)
-private String Nome;
+    // ... (restante dos seus campos) ...
 
-@Column(name = "CPF", nullable = false, unique = true)
-private String CPF;
+    @Column(name = "nome", nullable = false)
+    private String nome;
 
-@Column(name = "EMAIL", nullable = false, unique = true)
-private String EMAIL;
+    @Column(name = "cpf", nullable = false, unique = true)
+    private String cpf;
 
-@Column(name = "SENHA", nullable = false)
-private String Senha;
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
 
-@JsonFormat(pattern = "dd/MM/yyyy")
-@Column(name = "DATANASCIMENTO", nullable = false)
-private LocalDate dataNascimento;
+    @Column(name = "senha", nullable = false)
+    private String senha;
 
-@Column(name = "Status", nullable = false)
-@Enumerated (EnumType. STRING)
-private StatusUsuario status;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    @Column(name = "datanascimento", nullable = false)
+    private LocalDate dataNascimento;
 
-@OneToMany(mappedBy = "responsavel")
-private List<Projeto> projetos = new ArrayList<>();
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private StatusUsuario status;
+
+    @OneToMany(mappedBy = "responsavel") // Supondo que na entidade Projeto, você tem um campo 'responsavel' que mapeia para este Usuario
+    private List<Projeto> projetos = new ArrayList<>();
 
 }

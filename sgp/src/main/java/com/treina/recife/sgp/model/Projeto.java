@@ -14,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table; // Adicionado para consistência, embora você já tenha em outras entidades
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,36 +22,37 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "Projeto")
-
+@Entity
+@Table(name = "projeto") // Boa prática para definir o nome da tabela (geralmente minúsculas)
 public class Projeto implements Serializable {
     private static final long serialVersionUID = 1L;
 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-@Column(name = "projectId")
-private long projectId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "project_id") // Ajustado para snake_case, se seu DB usa isso. Se for 'projectId', mantenha.
+    private Long projectId; // Mude para Long para consistência com IDs gerados
 
-@Column(name = "NOME", nullable = false)
-private String Nome;
+    @Column(name = "nome", nullable = false) // Ajustado para minúsculas para convenção
+    private String nome;
 
-@Column(name = "DESCRIÇÃO", nullable = false)
-private String DESCRIÇÃO;
+    @Column(name = "descricao", nullable = false) // Ajustado para minúsculas para convenção
+    private String descricao;
 
-@Column(name = "dataInicio", nullable = false)
-@JsonFormat (pattern =  "dd/MM/yyyy")
-private LocalDate dataInicio;
+    @Column(name = "data_inicio", nullable = false) // Ajustado para snake_case
+    @JsonFormat (pattern = "dd/MM/yyyy")
+    private LocalDate dataInicio;
 
-@Column(name = "dataConclusao", nullable = false)
-@JsonFormat (pattern =  "dd/MM/yyyy")
-private LocalDate dataConclusao;
+    @Column(name = "data_conclusao", nullable = false) // Ajustado para snake_case
+    @JsonFormat (pattern = "dd/MM/yyyy")
+    private LocalDate dataConclusao;
 
-@ManyToOne
-@JoinColumn(name = "userId", referencedColumnName = "userId")
-private Usuario responsavel;
+    @ManyToOne
+    // 'name' é a coluna da FK na tabela 'projeto' (ex: 'responsavel_user_id')
+    // 'referencedColumnName' é a PK na tabela 'usuarios' (que é 'user_id')
+    @JoinColumn(name = "responsavel_user_id", referencedColumnName = "user_id", nullable = false)
+    private Usuario responsavel;
 
-@Column(name = "status", nullable = false)
-@Enumerated(EnumType.STRING)
-private StatusProjeto status;
-
+    @Column(name = "status", nullable = false) // Ajustado para minúsculas para convenção
+    @Enumerated(EnumType.STRING)
+    private StatusProjeto status;
 }

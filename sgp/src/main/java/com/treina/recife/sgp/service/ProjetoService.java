@@ -2,8 +2,8 @@ package com.treina.recife.sgp.service;
 
 import java.util.Optional;
 
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.treina.recife.sgp.model.Projeto;
 
@@ -13,7 +13,7 @@ Page<Projeto> getProjetos(Pageable pageable);
 
     Optional<Projeto> getProjetoById(long projectId);
 
-    Projeto creaTeProject(Projeto projeto);
+    Projeto createProjeto(Projeto projeto);
 
     Projeto updateProjeto(Projeto projeto);
 

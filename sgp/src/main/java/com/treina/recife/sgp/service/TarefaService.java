@@ -14,7 +14,6 @@ import com.treina.recife.sgp.model.Tarefa;
 public interface TarefaService {
 
     
-} TarefaService {
     Page<Tarefa> getTarefas(Pageable pageable);
 
     Optional<Tarefa> getTarefaById(long tarefaId);
