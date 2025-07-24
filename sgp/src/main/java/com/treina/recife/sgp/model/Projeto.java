@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.treina.recife.sgp.constants.StatusProjeto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,7 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table; // Adicionado para consistência, embora você já tenha em outras entidades
+import jakarta.persistence.Table; 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,36 +24,35 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "projeto") // Boa prática para definir o nome da tabela (geralmente minúsculas)
+@Table(name = "projeto") 
 public class Projeto implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "project_id") // Ajustado para snake_case, se seu DB usa isso. Se for 'projectId', mantenha.
-    private Long projectId; // Mude para Long para consistência com IDs gerados
+    @Column(name = "project_id") 
+    private Long projectId; 
 
-    @Column(name = "nome", nullable = false) // Ajustado para minúsculas para convenção
+    @Column(name = "nome", nullable = false) 
     private String nome;
 
-    @Column(name = "descricao", nullable = false) // Ajustado para minúsculas para convenção
+    @Column(name = "descricao", nullable = false) 
     private String descricao;
 
-    @Column(name = "data_inicio", nullable = false) // Ajustado para snake_case
+    @Column(name = "data_inicio", nullable = false) 
     @JsonFormat (pattern = "dd/MM/yyyy")
     private LocalDate dataInicio;
 
-    @Column(name = "data_conclusao", nullable = false) // Ajustado para snake_case
+    @Column(name = "data_conclusao", nullable = false) 
     @JsonFormat (pattern = "dd/MM/yyyy")
     private LocalDate dataConclusao;
 
     @ManyToOne
-    // 'name' é a coluna da FK na tabela 'projeto' (ex: 'responsavel_user_id')
-    // 'referencedColumnName' é a PK na tabela 'usuarios' (que é 'user_id')
     @JoinColumn(name = "responsavel_user_id", referencedColumnName = "user_id", nullable = false)
+    @JsonManagedReference
     private Usuario responsavel;
 
-    @Column(name = "status", nullable = false) // Ajustado para minúsculas para convenção
+    @Column(name = "status", nullable = false) 
     @Enumerated(EnumType.STRING)
     private StatusProjeto status;
 }

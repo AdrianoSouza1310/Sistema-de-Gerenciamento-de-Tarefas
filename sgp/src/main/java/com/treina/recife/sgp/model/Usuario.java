@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.treina.recife.sgp.constants.StatusUsuario; // Certifique-se de que este enum está correto e no caminho certo
 
 import jakarta.persistence.Column;
@@ -32,10 +33,8 @@ public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id") // Garante que a coluna no DB é 'user_id'
-    private Long userId; // O nome da propriedade é 'userId'
-
-    // ... (restante dos seus campos) ...
+    @Column(name = "user_id") 
+    private Long userId; 
 
     @Column(name = "nome", nullable = false)
     private String nome;
@@ -57,7 +56,8 @@ public class Usuario implements Serializable {
     @Column(name = "status", nullable = false)
     private StatusUsuario status;
 
-    @OneToMany(mappedBy = "responsavel") // Supondo que na entidade Projeto, você tem um campo 'responsavel' que mapeia para este Usuario
+    @OneToMany(mappedBy = "responsavel") 
+    @JsonManagedReference
     private List<Projeto> projetos = new ArrayList<>();
 
 }

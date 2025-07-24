@@ -25,27 +25,25 @@ public class ProjetoServiceImpl implements ProjetoService {
 
     @Override
     public Optional<Projeto> getProjetoById(long projectId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getProjetoById'");
+        return projetoRepository.findById(projectId);
     }
 
     @Override
     public Projeto createProjeto(Projeto projeto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createProjeto'");
+        return projetoRepository.save(projeto);
     }
 
+
     @Override
-    public Projeto updateProjeto(Projeto projeto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateProjeto'");
+    public Projeto updateProjeto(Projeto projeto)  {
+        return projetoRepository.save(projeto);
     }
 
     @Override
     public void deleteProjeto(long projetoId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteProjeto'");
+        projetoRepository.deleteById(projetoId);
     }
+
 
   
 }
